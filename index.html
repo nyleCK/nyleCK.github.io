@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Climate Risk Assessment — Helios Renewables ASA</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Petrona:ital,wght@0,400;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -28,6 +29,9 @@
     --phys:       #4d7355;
     --trans:      #c9a54a;
     --shadow:     #d4cfc4;
+    --severe:     #c97847;
+    --ochre-text: #8a7530;
+    --bess-text:  #a06030;
   }
 
   body {
@@ -37,6 +41,7 @@
     font-size: 13px;
     line-height: 1.5;
     min-height: 100vh;
+    padding-bottom: 90px;
   }
 
   /* ── Header ── */
@@ -73,6 +78,7 @@
     margin-top: 4px;
   }
   .scenario-badge {
+    margin-top: 10px;
     display: flex;
     gap: 8px;
     align-items: center;
@@ -127,9 +133,9 @@
     margin-top: 4px;
   }
   .kpi-danger .kpi-value { color: var(--danger); }
-  .kpi-warn   .kpi-value { color: #8a7530; }
+  .kpi-warn   .kpi-value { color: var(--ochre-text); }
   .kpi-blue   .kpi-value { color: var(--accent); }
-  .kpi-purple .kpi-value { color: #8a7530; }
+  .kpi-ochre .kpi-value { color: var(--ochre-text); }
 
   /* ── Tabs ── */
   .tabs {
@@ -144,10 +150,13 @@
     padding: 14px 20px;
     font-size: 12px;
     font-weight: 500;
+    font-family: inherit;
     color: var(--muted);
     cursor: pointer;
+    border: none;
     border-bottom: 2.5px solid transparent;
-    transition: all 0.2s;
+    background: none;
+    transition: color 0.2s, border-color 0.2s, font-weight 0.15s;
     letter-spacing: 0.02em;
     white-space: nowrap;
   }
@@ -156,8 +165,9 @@
 
   /* ── Content ── */
   .content { padding: 28px 32px; }
-  .panel { display: none; }
-  .panel.active { display: block; }
+  .panel { display: none; opacity: 0; }
+  .panel.active { display: block; animation: panelIn 0.25s ease-out forwards; }
+  @keyframes panelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
   /* ── Section heading ── */
   .section-label {
@@ -194,7 +204,7 @@
     border-bottom: 1px solid var(--hairline);
     vertical-align: middle;
   }
-  .register-table tr:hover td { background: rgba(77,115,85,0.04); }
+  .register-table tbody tr:not(.group-divider):not(.detail-row):hover td { background: rgba(77,115,85,0.04); transition: background 0.15s ease; }
 
   .risk-id {
     font-family: 'IBM Plex Mono', 'Cascadia Mono', monospace;
@@ -212,7 +222,7 @@
     font-family: 'IBM Plex Mono', 'Cascadia Mono', monospace;
   }
   .cat-physical   { background: rgba(77,115,85,0.10); color: var(--phys); }
-  .cat-transition { background: rgba(201,165,74,0.12); color: #8a7530; }
+  .cat-transition { background: rgba(201,165,74,0.12); color: var(--ochre-text); }
 
   .material-yes {
     font-family: 'IBM Plex Mono', 'Cascadia Mono', monospace;
@@ -233,7 +243,7 @@
     display: block;
   }
   .impact-high   { color: var(--danger); }
-  .impact-mid    { color: #c97847; }
+  .impact-mid    { color: var(--severe); }
   .impact-low    { color: var(--muted); }
 
   .likelihood-dot {
@@ -268,9 +278,10 @@
   .top-risk-tag {
     display: inline-block;
     font-family: 'IBM Plex Mono', 'Cascadia Mono', monospace;
-    font-size: 9px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--danger);
     border: 1px solid var(--danger);
     border-radius: 2px;
@@ -299,7 +310,7 @@
   .detail-block { max-width: 520px; }
   .detail-label {
     font-family: 'IBM Plex Mono', 'Cascadia Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -346,9 +357,9 @@
     border-radius: 3px;
     padding: 16px;
     box-shadow: 3px 3px 0 var(--shadow);
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .facility-card:hover { border-color: var(--accent); }
+  .facility-card:hover { border-color: var(--accent); box-shadow: 3px 3px 0 rgba(77,115,85,0.25); }
   .fc-header {
     display: flex;
     justify-content: space-between;
@@ -392,11 +403,11 @@
     border-radius: 2px;
     margin-top: 6px;
   }
-  .tech-solar  { background: rgba(201,165,74,0.15);  color: #8a7530; }
+  .tech-solar  { background: rgba(201,165,74,0.15);  color: var(--ochre-text); }
   .tech-hydro  { background: rgba(77,115,85,0.12);   color: #4d7355; }
   .tech-wind   { background: rgba(125,164,135,0.15); color: #4d7355; }
-  .tech-bess   { background: rgba(201,120,71,0.12);  color: #a06030; }
-  .tech-hybrid { background: rgba(201,165,74,0.12);  color: #8a7530; }
+  .tech-bess   { background: rgba(201,120,71,0.12);  color: var(--bess-text); }
+  .tech-hybrid { background: rgba(201,165,74,0.12);  color: var(--ochre-text); }
 
   .score-bars {
     display: flex;
@@ -726,9 +737,121 @@
     background: var(--surface2);
   }
 
-  button:focus-visible {
+  /* ── Interest capture bar ── */
+  .capture-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 16px rgba(25,24,21,0.08);
+  }
+  .capture-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .capture-text { min-width: 220px; }
+  .capture-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .capture-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .capture-fields {
+    display: flex;
+    gap: 8px;
+    flex: 1 1 auto;
+    min-width: 260px;
+    max-width: 420px;
+  }
+  .capture-fields input[type="email"] {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+  }
+  .capture-fields input[type="email"]:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  .capture-fields button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    background: var(--accent);
+    color: var(--surface);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease;
+  }
+  .capture-fields button:hover { background: var(--accent2); }
+  .capture-hp {
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+  }
+  .capture-dismiss {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 15px;
+    cursor: pointer;
+    padding: 4px 6px;
+    line-height: 1;
+  }
+  .capture-dismiss:hover { color: var(--text); }
+  .capture-success {
+    padding: 14px 32px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .capture-inner { padding: 12px 16px; flex-direction: column; align-items: stretch; gap: 10px; }
+    .capture-fields { max-width: none; }
+    .capture-dismiss { position: absolute; top: 10px; right: 12px; }
+    .capture-inner { position: relative; }
+  }
+
+  button:focus-visible,
+  .chip:focus-visible,
+  .risk-row:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+  }
+
+  .tr-channel {
+    transition: border-color 0.2s;
+  }
+  .tr-channel:hover {
+    border-color: var(--accent);
   }
 </style>
 </head>
@@ -740,7 +863,7 @@
     <div class="brand">The Green House · Climate & Sustainability Services</div>
     <div class="title">Climate Risk Assessment</div>
     <div class="subtitle">Helios Renewables ASA — Global Portfolio Risk Register</div>
-    <div class="scenario-badge" style="margin-top:10px">
+    <div class="scenario-badge">
       <span class="badge badge-danger">3°C HOT HOUSE SCENARIO</span>
       <span class="badge badge-blue">HORIZON: 2040</span>
       <span class="badge badge-muted">IFRS S2 · TCFD · CSRD · ESRS E1</span>
@@ -773,19 +896,19 @@
 </div>
 
 <!-- Tabs -->
-<div class="tabs">
-  <div class="tab active" onclick="switchTab('summary', this)">Summary</div>
-  <div class="tab" onclick="switchTab('register', this)">Risk Register</div>
-  <div class="tab" onclick="switchTab('physical', this)">Physical Risk</div>
-  <div class="tab" onclick="switchTab('transition', this)">Transition Risk</div>
-  <div class="tab" onclick="switchTab('globalmap', this)">Global Portfolio Map</div>
-  <div class="tab" onclick="switchTab('facilities', this)">Asset Heat Map</div>
+<div class="tabs" role="tablist" aria-label="Report sections">
+  <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-summary" data-panel="summary" tabindex="0">Summary</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="panel-register" data-panel="register" tabindex="-1">Risk Register</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="panel-physical" data-panel="physical" tabindex="-1">Physical Risk</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="panel-transition" data-panel="transition" tabindex="-1">Transition Risk</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="panel-globalmap" data-panel="globalmap" tabindex="-1">Global Portfolio Map</button>
+  <button class="tab" role="tab" aria-selected="false" aria-controls="panel-facilities" data-panel="facilities" tabindex="-1">Asset Heat Map</button>
 </div>
 
 <div class="content">
 
 <!-- PANEL 0 — Summary -->
-<div id="panel-summary" class="panel active">
+<div id="panel-summary" class="panel active" role="tabpanel" aria-labelledby="tab-summary">
   <div class="section-label">Executive brief · 3°C hot house scenario · 2040 horizon</div>
   <div class="summary-lede">
     <div class="summary-lede-text" id="summary-lede-text"></div>
@@ -807,8 +930,9 @@
 </div>
 
 <!-- PANEL 1 — Risk Register -->
-<div id="panel-register" class="panel">
+<div id="panel-register" class="panel" role="tabpanel" aria-labelledby="tab-register">
   <div class="section-label">15 risks identified · sorted by 2040 financial impact · materiality threshold NOK 46m/yr (1% of EBITDA)</div>
+  <div style="overflow-x:auto">
   <table class="register-table">
     <thead>
       <tr>
@@ -825,10 +949,11 @@
     </thead>
     <tbody id="register-body"></tbody>
   </table>
+  </div>
 </div>
 
 <!-- PANEL 2 — Physical Risk -->
-<div id="panel-physical" class="panel">
+<div id="panel-physical" class="panel" role="tabpanel" aria-labelledby="tab-physical">
   <div class="charts-grid">
     <div class="chart-card full">
       <div class="chart-title">Physical Risk by Hazard — Group Total (NOK m/yr, 2040, 3°C)</div>
@@ -850,7 +975,7 @@
 </div>
 
 <!-- PANEL 3 — Transition Risk -->
-<div id="panel-transition" class="panel">
+<div id="panel-transition" class="panel" role="tabpanel" aria-labelledby="tab-transition">
   <div class="tr-layout">
 
     <div class="tr-channel">
@@ -1027,17 +1152,17 @@
 </div>
 
 <!-- PANEL 4 — Global Portfolio Map -->
-<div id="panel-globalmap" class="panel">
+<div id="panel-globalmap" class="panel" role="tabpanel" aria-labelledby="tab-globalmap">
   <div class="section-label">15 asset clusters · 11 countries · 5 continents · bubble size = annual physical risk (3°C, 2040)</div>
   <div class="map-card">
-    <svg id="worldmap" viewBox="0 0 1000 470" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg id="worldmap" viewBox="0 0 1000 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Global portfolio map showing 15 asset clusters across 11 countries, bubble size represents annual physical risk under 3°C scenario at 2040 horizon"></svg>
     <div class="map-tooltip" id="map-tooltip"></div>
     <div class="map-legend">
       <span>RISK BANDING</span>
-      <span class="lg-item"><span class="lg-dot" style="background:#944a39"></span>> NOK 100m/yr</span>
-      <span class="lg-item"><span class="lg-dot" style="background:#c97847"></span>NOK 50–100m/yr</span>
-      <span class="lg-item"><span class="lg-dot" style="background:#debc5e"></span>NOK 25–50m/yr</span>
-      <span class="lg-item"><span class="lg-dot" style="background:#7da487"></span>< NOK 25m/yr</span>
+      <span class="lg-item"><span class="lg-dot" style="background:var(--danger)"></span>> NOK 100m/yr</span>
+      <span class="lg-item"><span class="lg-dot" style="background:var(--severe)"></span>NOK 50–100m/yr</span>
+      <span class="lg-item"><span class="lg-dot" style="background:var(--warn)"></span>NOK 25–50m/yr</span>
+      <span class="lg-item"><span class="lg-dot" style="background:var(--ok)"></span>< NOK 25m/yr</span>
       <span style="margin-left:auto">HOVER A MARKER FOR ASSET DETAIL</span>
     </div>
   </div>
@@ -1045,7 +1170,7 @@
 </div>
 
 <!-- PANEL 5 — Asset Heat Map -->
-<div id="panel-facilities" class="panel">
+<div id="panel-facilities" class="panel" role="tabpanel" aria-labelledby="tab-facilities">
   <div class="section-label">15 asset clusters · scored under 3°C scenario, 2040 · sorted by total physical impact</div>
   <div class="filter-bar" id="filter-bar"></div>
   <div class="heatmap-grid" id="heatmap-grid"></div>
@@ -1058,6 +1183,26 @@
   <span>TGH · CLIMATE RISK ASSESSMENT · RENEWABLE ENERGY · 2026</span>
   <span>DUMMY DATA — ILLUSTRATIVE PURPOSES ONLY</span>
   <span>SCENARIO: CMIP6 · NGFS · 3°C HOT HOUSE WORLD</span>
+</div>
+
+<!-- Interest capture -->
+<div class="capture-bar" id="capture-bar">
+  <div class="capture-inner" id="capture-form-wrap">
+    <div class="capture-text">
+      <div class="capture-title">Want to see this built for your own portfolio?</div>
+      <div class="capture-sub">Leave your email — we'll follow up after the conference.</div>
+    </div>
+    <form name="cra-demo-interest" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="capture-form" class="capture-fields">
+      <input type="hidden" name="form-name" value="cra-demo-interest" />
+      <p class="capture-hp">
+        <label>Leave this field blank: <input name="bot-field" /></label>
+      </p>
+      <input type="email" name="email" id="capture-email" placeholder="you@company.com" required />
+      <button type="submit">Get in touch</button>
+    </form>
+    <button type="button" class="capture-dismiss" id="capture-dismiss" aria-label="Dismiss this bar">✕</button>
+  </div>
+  <div class="capture-success" id="capture-success" style="display:none;">Thanks — we'll be in touch shortly.</div>
 </div>
 
 <script>
@@ -1575,10 +1720,66 @@ new Chart(document.getElementById('transitionChart'), {
 
 function switchTab(name, el) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected', 'false');
+    t.setAttribute('tabindex', '-1');
+  });
   document.getElementById('panel-' + name).classList.add('active');
   el.classList.add('active');
+  el.setAttribute('aria-selected', 'true');
+  el.setAttribute('tabindex', '0');
 }
+
+document.querySelectorAll('.tabs .tab').forEach(tab => {
+  tab.addEventListener('click', () => switchTab(tab.dataset.panel, tab));
+  tab.addEventListener('keydown', (e) => {
+    const tabs = [...document.querySelectorAll('.tabs .tab')];
+    const idx = tabs.indexOf(tab);
+    let target = null;
+    if (e.key === 'ArrowRight') target = tabs[(idx + 1) % tabs.length];
+    else if (e.key === 'ArrowLeft') target = tabs[(idx - 1 + tabs.length) % tabs.length];
+    else if (e.key === 'Home') target = tabs[0];
+    else if (e.key === 'End') target = tabs[tabs.length - 1];
+    if (target) {
+      e.preventDefault();
+      switchTab(target.dataset.panel, target);
+      target.focus();
+    }
+  });
+});
+
+// ── Interest capture form ───────────────────────────────────────────────────
+
+(function () {
+  const bar = document.getElementById('capture-bar');
+  const wrap = document.getElementById('capture-form-wrap');
+  const form = document.getElementById('capture-form');
+  const success = document.getElementById('capture-success');
+  const dismiss = document.getElementById('capture-dismiss');
+
+  if (dismiss && bar) {
+    dismiss.addEventListener('click', () => { bar.style.display = 'none'; });
+  }
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString(),
+      })
+        .then(() => {
+          wrap.style.display = 'none';
+          success.style.display = 'block';
+        })
+        .catch(() => {
+          alert('Something went wrong — please try again, or email us directly.');
+        });
+    });
+  }
+})();
 </script>
 </body>
 </html>

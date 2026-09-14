@@ -101,7 +101,8 @@
 
     /* ---------- How it works: 3-card flow ---------- */
     .how {
-      padding: clamp(32px, 6vw, 56px) 0;
+      padding-top: clamp(32px, 6vw, 56px);
+      padding-bottom: clamp(32px, 6vw, 56px);
     }
     .how .kicker { margin-bottom: 24px; }
     .how-row {
@@ -273,7 +274,8 @@
       .ruled > div { padding: 16px 0; }
       .ruled > div + div { border-left: 0; border-top: 1px solid var(--hairline); padding-left: 0; }
       .how-row { flex-direction: column; }
-      .how-arrow { transform: rotate(90deg); align-self: flex-start; margin-left: 20px; }
+      .how-card { flex: 0 0 auto; width: 88%; max-width: 320px; margin: 0 auto; padding: 14px 18px; }
+      .how-arrow { flex: 0 0 auto; transform: rotate(90deg); align-self: center; margin: 0; }
       .offer-row { grid-template-columns: 1fr; gap: 4px; }
       .field-row { flex-direction: column; }
       .field-row .btn { justify-content: center; }

@@ -4,26 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Green House · Climate Risk Platform</title>
-  <meta name="description" content="See how actuarial principles meet climate risk science. Climate risk assessments, costed by asset.">
+  <meta name="description" content="Climate risk assessments by The Green House. Geospatial hazard modelling, scenario testing and disclosure-ready reporting.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@1,400&family=Bricolage+Grotesque:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --sage: #4d7355;
+      --accent: #203E2B;       /* Evergreen — fills: buttons, wordmark dot */
+      --accent-line: #386B4B;  /* Hunter Green — borders, rails, underlines, accent text */
       --cool-sage: #7da487;
       --ochre: #c9a54a;
       --brick: #944a39;
-      --header-bg: #f6f3ec;
-      --sub-bar-bg: #eeebe1;
-      --panel-bg: #f5f2ea;
-      --stone: #d4cfc4;
-      --hairline: #ddd8cc;
-      --ink: #191815;
+      --header-bg: #F1F8F4;    /* Mint Cream */
+      --sub-bar-bg: #D7EADE;   /* Honeydew */
+      --panel-bg: #F1F8F4;     /* Mint Cream */
+      --stone: #386B4B;
+      --hairline: #B9CBC0;
+      --ink: #30323D;          /* Graphite */
       --body: #4a4640;
       --dimmed: #6b6558;
-      --search-fill: #edeae2;
-      --sage-wash: #e8e8de;
+      --search-fill: #F1F8F4;  /* Mint Cream */
+      --sage-wash: #D7EADE;    /* Honeydew */
+      --card-1: #EAF4EE;
+      --card-2: #C3DDCB;
+      --card-3: #93BBA0;
       --band-low: #7da487;
       --band-moderate: #bfc678;
       --band-high: #debc5e;
@@ -42,24 +46,24 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--sans);
-      font-size: 16px;
+      font-size: 21px;
       line-height: 1.5;
       color: var(--body);
       background: var(--header-bg);
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; text-decoration: none; }
-    :focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--accent-line); outline-offset: 2px; }
 
     .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad-h); }
 
     .kicker {
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 14.5px;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--sage);
+      color: var(--accent-line);
     }
     .title {
       font-family: var(--serif);
@@ -70,49 +74,71 @@
     }
     .mono { font-family: var(--mono); font-weight: 600; }
 
-    /* ---------- Header ---------- */
-    header {
-      border-bottom: 1px solid var(--stone);
-      background: var(--header-bg);
-    }
-    .hdr {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 60px;
-    }
-    .wordmark {
-      display: flex; align-items: center; gap: 10px;
-      font-weight: 700; font-size: 15px; color: var(--ink);
-    }
-    .wordmark::before {
-      content: ''; width: 8px; height: 8px; border-radius: 999px;
-      background: var(--sage);
-    }
-    .hdr .kicker { color: var(--dimmed); }
-
     /* ---------- Hero ---------- */
-    .hero { padding-top: clamp(48px, 9vw, 96px); padding-bottom: clamp(32px, 5vw, 56px); }
-    .hero .kicker { margin-bottom: 16px; }
+    .hero { padding-top: clamp(48px, 9vw, 96px); padding-bottom: clamp(28px, 4vw, 40px); }
     .hero h1 {
-      font-size: clamp(32px, 6.4vw, 54px);
-      max-width: 15ch;
+      font-family: var(--sans);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--ink);
+      font-size: clamp(41.5px, 8.3vw, 70px);
+      max-width: 16ch;
       margin-bottom: 20px;
     }
     .hero p {
-      font-size: clamp(16px, 2vw, 18px);
+      font-size: clamp(19.5px, 2.6vw, 22px);
       max-width: 52ch;
-      margin-bottom: 28px;
     }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--sans); font-size: 14px; font-weight: 700;
+      font-family: var(--sans); font-size: 18px; font-weight: 700;
       padding: 10px 18px; border-radius: 3px; border: 1px solid transparent;
       cursor: pointer; white-space: nowrap;
     }
     .btn-dark { background: var(--ink); color: var(--header-bg); }
-    .btn-primary { background: var(--sage); color: #fff; }
+    .btn-primary { background: var(--accent); color: #fff; }
     .btn-ghost { background: var(--header-bg); color: var(--dimmed); border-color: var(--stone); }
 
-    /* ---------- Video ---------- */
+    /* ---------- How it works: 3-card flow ---------- */
+    .how {
+      padding: clamp(32px, 6vw, 56px) 0;
+    }
+    .how .kicker { margin-bottom: 24px; }
+    .how-row {
+      display: flex; align-items: stretch; gap: 12px; flex-wrap: wrap;
+    }
+    .how-arrow {
+      flex: 0 0 auto; align-self: center;
+      font-size: 22px; color: var(--accent-line);
+    }
+    .how-card {
+      flex: 1 1 220px; min-width: 220px;
+      border: 1px solid var(--stone); border-radius: 6px;
+      box-shadow: 4px 4px 0 var(--stone);
+      padding: 20px;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .how-card.in { opacity: 1; transform: none; }
+    .how-card:nth-child(1) { background: var(--card-1); }
+    .how-card:nth-child(3) { background: var(--card-2); }
+    .how-card:nth-child(5) { background: var(--card-3); }
+    .how-who {
+      font-family: var(--mono); font-size: 14.5px; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--accent-line);
+      margin-bottom: 10px;
+    }
+    .how-card h3 { font-size: 21px; font-weight: 700; color: var(--ink); }
+
+    /* ---------- Video trio ---------- */
+    .video-section { padding-top: clamp(32px, 6vw, 56px); padding-bottom: clamp(32px, 6vw, 56px); }
+    .video-block { margin-bottom: 36px; }
+    .video-caption {
+      font-family: var(--sans); font-weight: 700;
+      font-size: clamp(23.5px, 3.2vw, 27px); line-height: 1.3;
+      color: var(--ink); max-width: 40ch;
+      margin-bottom: 16px;
+    }
     .video-card {
       background: var(--panel-bg);
       border: 1px solid var(--stone);
@@ -128,31 +154,56 @@
       display: flex; justify-content: space-between; align-items: center;
       gap: 12px; padding: 10px 14px;
       border-top: 1px solid var(--hairline);
-      font-family: var(--mono); font-size: 12px; font-weight: 600;
+      font-family: var(--mono); font-size: 15.5px; font-weight: 600;
       color: var(--dimmed);
     }
-    .video-meta .kicker { color: var(--sage); }
+    .restart { font-size: 15.5px; padding: 5px 12px; font-weight: 500; }
 
-    /* ---------- Key finding callout ---------- */
-    .finding {
-      margin: 40px 0 0;
-      padding: 18px 20px;
+    /* ---------- Lead form card ---------- */
+    .lead-card {
+      max-width: 460px;
+      background: var(--card-1);
+      border: 1px solid var(--stone);
+      border-radius: 6px;
+      padding: 24px;
+    }
+    .field { display: grid; gap: 6px; }
+    .field label {
+      font-family: var(--mono); font-size: 14.5px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase; color: var(--dimmed);
+      line-height: 1.4;
+    }
+    .field-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .field input {
+      flex: 1; min-width: 160px;
+      font-family: var(--sans); font-size: 19.5px; color: var(--ink);
+      background: var(--header-bg);
+      border: 1px solid var(--hairline); border-radius: 2px;
+      padding: 10px 12px;
+    }
+    .field input::placeholder { color: var(--dimmed); }
+    .field input:focus { border-color: var(--accent-line); outline: none; }
+    .form-note {
+      margin-top: 12px; font-size: 15.5px; color: var(--dimmed);
+    }
+    .form-ok {
+      display: none;
+      max-width: 460px;
+      padding: 14px 16px;
       background: var(--sage-wash);
-      border-left: 1px solid var(--sage);
-      border-radius: 0 3px 3px 0;
+      border-left: 1px solid var(--accent-line);
+      font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink);
     }
-    .finding .kicker { margin-bottom: 8px; }
-    .finding p:not(.kicker) {
-      font-family: var(--serif); font-style: italic;
-      font-size: clamp(18px, 2.6vw, 22px); line-height: 1.3; color: var(--ink);
-    }
+    .lead-wrap.sent .lead-card { display: none; }
+    .lead-wrap.sent .form-ok { display: block; }
+    .hp { position: absolute; left: -9999px; }
 
     /* ---------- Sections ---------- */
     section { padding: clamp(40px, 7vw, 72px) 0; }
     section + section { border-top: 1px solid var(--hairline); }
     .sec-head { margin-bottom: 28px; }
     .sec-head .kicker { margin-bottom: 8px; }
-    .sec-head h2 { font-size: clamp(24px, 3.6vw, 32px); }
+    .sec-head h2 { font-size: clamp(31px, 4.7vw, 41.5px); }
 
     /* Ruled three-up */
     .ruled {
@@ -163,42 +214,8 @@
     }
     .ruled > div { padding: 22px 20px 22px 0; }
     .ruled > div + div { border-left: 1px solid var(--hairline); padding-left: 20px; }
-    .ruled h3 { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-    .ruled p { font-size: 14px; color: var(--dimmed); }
-
-    /* Timeline. Same grammar as the trajectory charts: a solid ink dot for "now",
-       sage rings for what follows, dashed rail for the stretch not yet reached. */
-    .timeline {
-      list-style: none;
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
-    }
-    .tl-step { position: relative; padding-top: 34px; }
-    .tl-step::before {
-      content: ''; position: absolute; left: 0; top: 0;
-      width: 13px; height: 13px; border-radius: 999px;
-      background: var(--header-bg); border: 1.5px solid var(--sage);
-      z-index: 1;
-    }
-    .tl-step.is-now::before { background: var(--ink); border-color: var(--ink); }
-    .tl-step::after {
-      content: ''; position: absolute; top: 6px; left: 13px; right: -32px;
-      border-top: 1px solid var(--sage);
-    }
-    .tl-step:nth-child(2)::after { border-top-style: dashed; }
-    .tl-step.is-last::after { display: none; }
-    .tl-who {
-      position: absolute; top: -20px; left: 0;
-      font-family: var(--mono); font-size: 11px; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--dimmed);
-      white-space: nowrap;
-    }
-    .tl-num {
-      display: block; font-family: var(--mono); font-size: 12px; font-weight: 600;
-      color: var(--sage); margin-bottom: 8px;
-    }
-    .tl-step h3 { font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-    .tl-step p { font-size: 14px; }
-    .sec-head.tl-head { margin-bottom: 48px; }
+    .ruled h3 { font-size: 19.5px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .ruled p { font-size: 18px; color: var(--dimmed); }
 
     /* Risk ramp strip */
     .ramp {
@@ -211,7 +228,7 @@
     .ramp-labels {
       display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
       margin-top: 6px;
-      font-family: var(--mono); font-size: 11px; font-weight: 600;
+      font-family: var(--mono); font-size: 14.5px; font-weight: 600;
       letter-spacing: 1px; text-transform: uppercase; color: var(--dimmed);
     }
 
@@ -223,51 +240,18 @@
       border-bottom: 1px solid var(--hairline);
     }
     .offer-row:last-child { border-bottom: 1px solid var(--stone); }
-    .offer-row h3 { font-size: 15px; font-weight: 700; color: var(--ink); }
-    .offer-row p { font-size: 14px; }
+    .offer-row h3 { font-size: 19.5px; font-weight: 700; color: var(--ink); }
+    .offer-row p { font-size: 18px; }
     .frameworks {
       margin-top: 24px;
       display: flex; flex-wrap: wrap; gap: 8px;
     }
     .chip {
-      font-family: var(--mono); font-size: 11px; font-weight: 600;
+      font-family: var(--mono); font-size: 14.5px; font-weight: 600;
       letter-spacing: 1px; text-transform: uppercase;
       color: var(--dimmed); border: 1px solid var(--stone);
       border-radius: 999px; padding: 5px 11px;
     }
-
-    /* ---------- Lead form (hero) ---------- */
-    .lead { max-width: 460px; }
-    .field { display: grid; gap: 6px; }
-    .field label {
-      font-family: var(--mono); font-size: 11px; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase; color: var(--dimmed);
-    }
-    .field-row { display: flex; gap: 10px; }
-    .field input {
-      flex: 1; min-width: 0;
-      font-family: var(--sans); font-size: 15px; color: var(--ink);
-      background: var(--header-bg);
-      border: 1px solid var(--hairline); border-radius: 2px;
-      padding: 10px 12px;
-    }
-    .field input::placeholder { color: var(--dimmed); }
-    .field input:focus { border-color: var(--sage); outline: none; }
-    .form-note {
-      margin-top: 12px; font-size: 12px; color: var(--dimmed);
-    }
-    .form-ok {
-      display: none;
-      max-width: 460px;
-      padding: 14px 16px;
-      background: var(--sage-wash);
-      border-left: 1px solid var(--sage);
-      font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink);
-    }
-    .hero.sent .lead { display: none; }
-    .hero.sent .form-ok { display: block; }
-    .hp { position: absolute; left: -9999px; }
-    .sound { font-size: 12px; padding: 5px 12px; font-weight: 500; }
 
     /* ---------- Footer ---------- */
     footer {
@@ -279,8 +263,8 @@
       display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
       gap: 12px;
     }
-    .ftr .tag { font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink); }
-    .ftr .meta { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--dimmed); }
+    .ftr .tag { font-family: var(--serif); font-style: italic; font-size: 19.5px; color: var(--ink); }
+    .ftr .meta { font-family: var(--mono); font-size: 14.5px; font-weight: 600; letter-spacing: 1px; color: var(--dimmed); }
     .ftr a { border-bottom: 1px solid var(--stone); }
 
     /* ---------- Responsive ---------- */
@@ -288,75 +272,112 @@
       .ruled { grid-template-columns: 1fr; }
       .ruled > div { padding: 16px 0; }
       .ruled > div + div { border-left: 0; border-top: 1px solid var(--hairline); padding-left: 0; }
-      .timeline { grid-template-columns: 1fr; gap: 36px; }
-      .tl-step { padding-top: 0; padding-left: 30px; }
-      .tl-step::after {
-        top: 13px; bottom: -36px; left: 6px; right: auto;
-        border-top: 0; border-left: 1px solid var(--sage);
-      }
-      .tl-step:nth-child(2)::after { border-left-style: dashed; }
-      .tl-who { position: static; display: block; margin-bottom: 4px; }
+      .how-row { flex-direction: column; }
+      .how-arrow { transform: rotate(90deg); align-self: flex-start; margin-left: 20px; }
       .offer-row { grid-template-columns: 1fr; gap: 4px; }
       .field-row { flex-direction: column; }
       .field-row .btn { justify-content: center; }
-      .ramp-labels { letter-spacing: 0; }
+      .ramp-labels { font-size: 10px; letter-spacing: 0.3px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="wrap hdr">
-      <a href="https://tgh.co.za/" class="wordmark">The Green House</a>
-      <span class="kicker">Climate Risk</span>
-    </div>
-  </header>
-
   <main>
 
     <!-- Hero -->
     <div class="wrap hero">
-      <p class="kicker">Climate Risk Platform</p>
-      <h1 class="title">See how actuarial principles meet climate risk science.</h1>
-      <p>Climate risk assessments, costed by asset. Geospatial hazard modelling, scenario testing and disclosure-ready reporting, built on engineering and actuarial expertise.</p>
+      <h1>Climate Risk Assessments<br>by The Green House</h1>
+      <p>Geospatial hazard modelling, scenario testing and disclosure-ready reporting, built on engineering and actuarial expertise.</p>
+    </div>
 
-      <form name="conference-leads" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="lead-form" class="lead">
-        <input type="hidden" name="form-name" value="conference-leads">
-        <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
-        <div class="field">
-          <label for="email">Request a walkthrough</label>
-          <div class="field-row">
-            <input type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email" inputmode="email">
-            <button type="submit" class="btn btn-dark">Send</button>
+    <!-- How it works: 3-card flow -->
+    <div class="wrap how">
+      <p class="kicker">How it works</p>
+      <div class="how-row" id="how-row">
+        <div class="how-card">
+          <p class="how-who">You</p>
+          <h3>Share your asset register.</h3>
+        </div>
+        <div class="how-arrow" aria-hidden="true">→</div>
+        <div class="how-card">
+          <p class="how-who">The Green House</p>
+          <h3>We model your exposure.</h3>
+        </div>
+        <div class="how-arrow" aria-hidden="true">→</div>
+        <div class="how-card">
+          <p class="how-who">You</p>
+          <h3>Move forward with confidence.</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video trio -->
+    <div class="wrap video-section">
+      <div class="video-block">
+        <p class="video-caption">We assess assets against the climate landscape to enable informed decisions</p>
+        <div class="video-card">
+          <video class="demo-video" autoplay muted loop playsinline preload="auto" poster="video-1-poster.jpg">
+            <source src="video-1.mp4" type="video/mp4">
+          </video>
+          <div class="video-meta">
+            <span>0:52</span>
+            <button type="button" class="btn btn-ghost restart">Restart</button>
           </div>
         </div>
-        <p class="form-note">One follow-up email after the conference. No mailing list.</p>
-      </form>
-      <div class="form-ok" id="form-ok">Thank you. We will be in touch shortly.</div>
-    </div>
+      </div>
 
-    <!-- Video -->
-    <div class="wrap">
-      <div class="video-card">
-        <video id="demo" autoplay muted loop playsinline preload="auto" poster="poster.jpg">
-          <source src="platform-walkthrough.mp4" type="video/mp4">
-          Your browser does not support embedded video.
-        </video>
-        <div class="video-meta">
-          <span class="kicker">Platform walkthrough</span>
-          <button type="button" class="btn btn-ghost sound" id="sound">Sound off</button>
+      <div class="video-block">
+        <p class="video-caption">Site-level analysis enables detailed adaptation planning</p>
+        <div class="video-card">
+          <video class="demo-video" autoplay muted loop playsinline preload="auto" poster="video-2-poster.jpg">
+            <source src="video-2.mp4" type="video/mp4">
+          </video>
+          <div class="video-meta">
+            <span>0:12</span>
+            <button type="button" class="btn btn-ghost restart">Restart</button>
+          </div>
         </div>
       </div>
 
-      <div class="finding">
-        <p class="kicker">How it works</p>
-        <p>Hazards are mapped against your actual asset coordinates, damage is estimated asset by asset, and the whole portfolio is re-run under a range of warming and transition scenarios.</p>
+      <div class="video-block">
+        <p class="video-caption">Science behind your sustainability and climate risk reporting</p>
+        <div class="video-card">
+          <video class="demo-video" autoplay muted loop playsinline preload="auto" poster="video-3-poster.jpg">
+            <source src="video-3.mp4" type="video/mp4">
+          </video>
+          <div class="video-meta">
+            <span>0:14</span>
+            <button type="button" class="btn btn-ghost restart">Restart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lead-wrap" id="lead-wrap">
+        <div class="lead-card">
+          <form name="conference-leads" method="POST" action="/" data-netlify="true" netlify-honeypot="bot-field" id="lead-form">
+            <input type="hidden" name="form-name" value="conference-leads">
+            <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+            <div class="field">
+              <label for="email">Leave your details below, we'll send a follow-up email after the conference</label>
+              <div class="field-row">
+                <input type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email" inputmode="email">
+                <button type="submit" class="btn btn-dark">Send</button>
+              </div>
+            </div>
+            <p class="form-note">No mailing list.</p>
+          </form>
+        </div>
+        <div class="form-ok">Thank you. We will be in touch shortly.</div>
       </div>
     </div>
 
-    <!-- Value stack -->
+    <!-- What you get -->
     <section>
       <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker">What you get</p>
+        </div>
         <div class="ruled">
           <div>
             <h3>Scores translated to financial impact</h3>
@@ -385,41 +406,11 @@
       </div>
     </section>
 
-    <!-- Process -->
-    <section>
-      <div class="wrap">
-        <div class="sec-head tl-head">
-          <p class="kicker">What to expect</p>
-          <h2 class="title">From map to plan, in three steps.</h2>
-        </div>
-        <ol class="timeline">
-          <li class="tl-step is-now">
-            <span class="tl-who">You</span>
-            <span class="tl-num">01</span>
-            <h3>Share your asset register.</h3>
-            <p>Tell us what you have, where, and any protections already in place.</p>
-          </li>
-          <li class="tl-step">
-            <span class="tl-who">The Green House</span>
-            <span class="tl-num">02</span>
-            <h3>We model your exposure.</h3>
-            <p>Your assets are scored against climate hazards and the results are translated into financial terms.</p>
-          </li>
-          <li class="tl-step is-last">
-            <span class="tl-who">You</span>
-            <span class="tl-num">03</span>
-            <h3>Move forward with confidence.</h3>
-            <p>Figures ready for your board, your provisioning, and your disclosure.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- Offering -->
+    <!-- Wider offering -->
     <section>
       <div class="wrap">
         <div class="sec-head">
-          <p class="kicker">The wider offering</p>
+          <p class="kicker">Our wider offering</p>
           <h2 class="title">Environmental science, paired with actuarial risk quantification.</h2>
         </div>
         <div class="offer">
@@ -475,21 +466,41 @@
         body: new URLSearchParams(new FormData(form)).toString()
       }).then(function (r) {
         if (!r.ok) throw new Error(r.status);
-        document.querySelector('.hero').classList.add('sent');
+        document.getElementById('lead-wrap').classList.add('sent');
       }).catch(function () {
         btn.disabled = false;
         form.submit();
       });
     });
 
-    // Autoplay has to start muted; this lets a viewer opt in to sound.
-    var video = document.getElementById('demo');
-    var sound = document.getElementById('sound');
-    sound.addEventListener('click', function () {
-      video.muted = !video.muted;
-      sound.textContent = video.muted ? 'Sound off' : 'Sound on';
-      if (video.paused) video.play();
+    // None of these clips carry sound; the button jumps a viewer back to the start on demand.
+    document.querySelectorAll('.video-card').forEach(function (card) {
+      var video = card.querySelector('video');
+      var btn = card.querySelector('.restart');
+      btn.addEventListener('click', function () {
+        video.currentTime = 0;
+        video.play();
+      });
     });
+
+    // Fade the "how it works" cards in, staggered, the first time they scroll into view.
+    var howRow = document.getElementById('how-row');
+    var cards = howRow.querySelectorAll('.how-card');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            cards.forEach(function (card, i) {
+              setTimeout(function () { card.classList.add('in'); }, i * 150);
+            });
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.25 });
+      obs.observe(howRow);
+    } else {
+      cards.forEach(function (card) { card.classList.add('in'); });
+    }
   </script>
 
 </body>
